@@ -37,3 +37,5 @@
 (setq ffip-patterns (append '("*.sass" "*.coffee") ffip-patterns))
 
 (require 'ruby-tools)
+
+(server-start)
