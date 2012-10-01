@@ -1,13 +1,13 @@
 (color-theme-twilight)
-(setq auto-mode-alist
-      (append '(("\\.js.coffee.erb$" . coffee-mode) ("\\..*hbs.*$" . html-mode))
-              auto-mode-alist))
+(add-to-list 'auto-mode-alist '("\\.js.coffee.erb$" . coffee-mode))
+(add-to-list 'auto-mode-alist '("\\..*hbs.*$" . html-mode))
 
 (custom-set-variables
  '(exec-path (quote ("/usr/bin" "/bin" "/usr/sbin" "/sbin" "/Applications/Emacs.app/Contents/MacOS/bin" "/usr/local/bin")))
- '(ack-and-a-half-executable (let ((ack-grep-bin (executable-find "ack-grep")) (ack-bin (executable-find "ack"))) (if ack-grep-bin ack-grep-bin (if ack-bin ack-bin nil)))))
-
-(add-hook 'coffee-mode-hook '(lambda () (setq tab-width 2)))
+ '(ack-and-a-half-executable (let ((ack-grep-bin (executable-find "ack-grep"))
+                                   (ack-bin (executable-find "ack")))
+                               (if ack-grep-bin ack-grep-bin
+                                 (if ack-bin ack-bin nil)))))
 
 ; binding.pry my test/method/function in ruby
 (defun pry-me ()
@@ -18,7 +18,9 @@
     (forward-char 8)
     (insert "pry ")))
 
-(eval-after-load 'ruby-mode
+(add-hook 'coffee-mode-hook '(lambda () (setq tab-width 2)))
+
+(add-hook 'ruby-mode-hook '(lambda ()
   '(progn
      ;; stop the crazy indentation
      (setq ruby-deep-indent-paren-style nil)
@@ -27,7 +29,7 @@
      (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
 
      ;; add binding for pry-me
-     (define-key ruby-mode-map (kbd "C-x p") 'pry-me)))
+     (define-key ruby-mode-map (kbd "C-x p") 'pry-me))))
 
 (global-set-key (kbd "C-x C-f") 'find-file-other-window)
 (global-set-key (kbd "C-x C-t") 'ack-and-a-half)
@@ -44,4 +46,12 @@
 (require 'rvm)
 (require 'package)
 (package-initialize)
+
+;; The following lines are always needed.  Choose your own keys.
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(add-hook 'org-mode-hook 'turn-on-font-lock) ; not needed when global-font-lock-mode is on
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+
 (server-start)
