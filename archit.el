@@ -20,7 +20,7 @@
 
 (add-hook 'coffee-mode-hook '(lambda () (setq tab-width 2)))
 
-(add-hook 'ruby-mode-hook '(lambda ()
+(eval-after-load 'ruby-mode
   '(progn
      ;; stop the crazy indentation
      (setq ruby-deep-indent-paren-style nil)
@@ -29,7 +29,7 @@
      (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
 
      ;; add binding for pry-me
-     (define-key ruby-mode-map (kbd "C-x p") 'pry-me))))
+     (define-key ruby-mode-map (kbd "C-x p") 'pry-me)))
 
 (global-set-key (kbd "C-x C-f") 'find-file-other-window)
 (global-set-key (kbd "C-x C-t") 'ack-and-a-half)
