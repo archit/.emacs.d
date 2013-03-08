@@ -55,3 +55,4 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 
 (server-start)
+(rvm-use "ruby-1.9.3-p125" "deathstar")
