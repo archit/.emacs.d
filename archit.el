@@ -9,7 +9,7 @@
                                (if ack-grep-bin ack-grep-bin
                                  (if ack-bin ack-bin nil)))))
 
-; binding.pry my test/method/function in ruby
+;; binding.pry my test/method/function in ruby
 (defun pry-me ()
   (interactive)
   (save-excursion
@@ -32,7 +32,6 @@
      (define-key ruby-mode-map (kbd "C-x p") 'pry-me)))
 
 (global-set-key (kbd "C-x C-f") 'find-file-other-window)
-(global-set-key (kbd "C-x C-t") 'ack-and-a-half)
 
 ;; make Cmd key act as Meta
 (setq ns-command-modifier 'meta)
@@ -55,4 +54,4 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 
 (server-start)
-(rvm-use "ruby-1.9.3-p125" "deathstar")
+(rvm-use "ruby-2.0.0-p247" "")
