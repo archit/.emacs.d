@@ -1,4 +1,4 @@
-(color-theme-twilight)
+(load-theme 'solarized-dark t)
 (add-to-list 'auto-mode-alist '("\\.js.coffee.erb$" . coffee-mode))
 (add-to-list 'auto-mode-alist '("\\..*hbs.*$" . html-mode))
 
@@ -54,4 +54,4 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 
 (server-start)
-(rvm-use "ruby-2.0.0-p247" "")
+(rvm-use "ruby-2.0.0-p353" "")
