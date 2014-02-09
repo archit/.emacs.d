@@ -1,13 +1,16 @@
 (load-theme 'solarized-dark t)
 (add-to-list 'auto-mode-alist '("\\.js.coffee.erb$" . coffee-mode))
 (add-to-list 'auto-mode-alist '("\\..*hbs.*$" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.podspec$" . ruby-mode))
 
 (custom-set-variables
  '(exec-path (quote ("/usr/bin" "/bin" "/usr/sbin" "/sbin" "/Applications/Emacs.app/Contents/MacOS/bin" "/usr/local/bin")))
  '(ack-and-a-half-executable (let ((ack-grep-bin (executable-find "ack-grep"))
                                    (ack-bin (executable-find "ack")))
                                (if ack-grep-bin ack-grep-bin
-                                 (if ack-bin ack-bin nil)))))
+                                 (if ack-bin ack-bin nil))))
+ '(scss-compile-at-save nil)
+ '(haskell-mode-hook '(turn-on-haskell-indent)))
 
 ;; binding.pry my test/method/function in ruby
 (defun pry-me ()
