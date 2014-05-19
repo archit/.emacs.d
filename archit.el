@@ -12,14 +12,13 @@
  '(scss-compile-at-save nil)
  '(haskell-mode-hook '(turn-on-haskell-indent)))
 
-;; binding.pry my test/method/function in ruby
-(defun pry-me ()
-  (interactive)
-  (save-excursion
-    (insert "binding.pry\n")
-    (re-search-backward "should [\"'][^\"']*[\"'] do")
-    (forward-char 8)
-    (insert "pry ")))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(enh-ruby-string-delimiter-face ((t (:foreground "gray55"))))
+ '(enh-ruby-op-face ((t (:foreground "gray55")))))
 
 (add-hook 'coffee-mode-hook '(lambda () (setq tab-width 2)))
 
@@ -29,10 +28,7 @@
      (setq ruby-deep-indent-paren-style nil)
 
      ;; always indent on newline
-     (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
-
-     ;; add binding for pry-me
-     (define-key ruby-mode-map (kbd "C-x p") 'pry-me)))
+     (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)))
 
 (global-set-key (kbd "C-x C-f") 'find-file-other-window)
 
