@@ -28,22 +28,21 @@
      (setq ruby-deep-indent-paren-style nil)
 
      ;; always indent on newline
-     (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)))
+     (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
+
+     ;; no thanks @driedtoast
+     (add-hook 'ruby-mode-hook 'textmate-mode)))
 
 (global-set-key (kbd "C-x C-f") 'find-file-other-window)
 
 ;; make Cmd key act as Meta
-(setq ns-command-modifier 'meta)
-
-; Find-file-in-project customizations
-(require 'find-file-in-project)
-(global-set-key (kbd "C-x 4 f") 'find-file-in-project)
-(setq ffip-patterns (append '("*.sass" "*.coffee") ffip-patterns))
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier 'super)
+(setq mac-control-modifier 'control)
+(setq ns-function-modifier 'hyper)
 
 (require 'ruby-tools)
 (require 'rvm)
-(require 'package)
-(package-initialize)
 
 ;; The following lines are always needed.  Choose your own keys.
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
