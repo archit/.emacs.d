@@ -22,17 +22,6 @@
  '(enh-ruby-string-delimiter-face ((t (:foreground "gray55"))))
  '(enh-ruby-op-face ((t (:foreground "gray55")))))
 
-(eval-after-load 'ruby-mode
-  '(progn
-     ;; stop the crazy indentation
-     (setq ruby-deep-indent-paren-style nil)
-
-     ;; always indent on newline
-     (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
-
-     ;; no thanks @driedtoast
-     (add-hook 'ruby-mode-hook 'textmate-mode)))
-
 (global-set-key (kbd "C-x C-f") 'find-file-other-window)
 
 ;; make Cmd key act as Meta
