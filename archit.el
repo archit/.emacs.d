@@ -1,7 +1,8 @@
 (load-theme 'solarized-dark t)
 (add-to-list 'auto-mode-alist '("\\.js.coffee.erb$" . coffee-mode))
-(add-to-list 'auto-mode-alist '("\\..*hbs.*$" . html-mode))
 (add-to-list 'auto-mode-alist '("\\.podspec$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\..*hbs.*$" . handlebars-mode))
+(add-to-list 'auto-mode-alist '("\\.handlebars.*$" . handlebars-mode))
 
 (custom-set-variables
  '(exec-path (quote ("/usr/bin" "/bin" "/usr/sbin" "/sbin" "/Applications/Emacs.app/Contents/MacOS/bin" "/usr/local/bin")))
@@ -10,7 +11,8 @@
                                (if ack-grep-bin ack-grep-bin
                                  (if ack-bin ack-bin nil))))
  '(scss-compile-at-save nil)
- '(haskell-mode-hook '(turn-on-haskell-indent)))
+ '(haskell-mode-hook '(turn-on-haskell-indent))
+ '(coffee-tab-width 2))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -19,8 +21,6 @@
  ;; If there is more than one, they won't work right.
  '(enh-ruby-string-delimiter-face ((t (:foreground "gray55"))))
  '(enh-ruby-op-face ((t (:foreground "gray55")))))
-
-(add-hook 'coffee-mode-hook '(lambda () (setq tab-width 2)))
 
 (eval-after-load 'ruby-mode
   '(progn
@@ -43,13 +43,6 @@
 
 (require 'ruby-tools)
 (require 'rvm)
-
-;; The following lines are always needed.  Choose your own keys.
-(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(add-hook 'org-mode-hook 'turn-on-font-lock) ; not needed when global-font-lock-mode is on
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
 
 (server-start)
 (rvm-use "ruby-2.0.0-p353" "")
