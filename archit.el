@@ -12,7 +12,9 @@
                                  (if ack-bin ack-bin nil))))
  '(scss-compile-at-save nil)
  '(haskell-mode-hook '(turn-on-haskell-indent))
- '(coffee-tab-width 2))
+ '(coffee-tab-width 2)
+ '(js-indent-level 4)
+ '(fill-column 300))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
