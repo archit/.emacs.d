@@ -36,4 +36,3 @@
 (require 'rvm)
 
 (server-start)
-(rvm-use "ruby-2.0.0-p353" "")
