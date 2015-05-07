@@ -10,7 +10,8 @@
                                (if ack-grep-bin ack-grep-bin
                                  (if ack-bin ack-bin nil))))
  '(scss-compile-at-save nil)
- '(haskell-mode-hook '(turn-on-haskell-indent)))
+ '(haskell-mode-hook '(turn-on-haskell-indent))
+ '(js-indent-level 4))
 
 ;; binding.pry my test/method/function in ruby
 (defun pry-me ()
