@@ -31,8 +31,7 @@
 (setq custom-file (concat dotfiles-dir "custom.el"))
 
 (require 'package)
-(dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
-                  ("elpa" . "http://tromey.com/elpa/")))
+(dolist (source '(("melpa" . "http://melpa.milkbox.net/packages/")))
   (add-to-list 'package-archives source t))
 (package-initialize)
 (require 'starter-kit-elpa)
