@@ -46,4 +46,11 @@
 (setq visible-bell nil) ;; The default
 (setq ring-bell-function 'ignore)
 
+; default window width and height
+(defun custom-set-frame-size ()
+  (add-to-list 'default-frame-alist '(height . 45))
+  (add-to-list 'default-frame-alist '(width . 161)))
+(custom-set-frame-size)
+(add-hook 'before-make-frame-hook 'custom-set-frame-size)
+
 (server-start)
