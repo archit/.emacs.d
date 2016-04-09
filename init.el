@@ -22,7 +22,7 @@
 
 ;; Load up ELPA, the package manager
 
-(add-to-list 'load-path dotfiles-dir)
+(add-to-list 'load-path (concat dotfiles-dir "/starter-kit"))
 
 (add-to-list 'load-path (concat dotfiles-dir "/elpa-to-submit"))
 
