@@ -23,8 +23,8 @@
 ;; Load up ELPA, the package manager
 
 (add-to-list 'load-path (concat dotfiles-dir "/starter-kit"))
-
 (add-to-list 'load-path (concat dotfiles-dir "/elpa-to-submit"))
+(add-to-list 'load-path (concat dotfiles-dir "/lisp"))
 
 (setq autoload-file (concat dotfiles-dir "loaddefs.el"))
 (setq package-user-dir (concat dotfiles-dir "elpa"))
@@ -45,9 +45,6 @@
 (require 'uniquify)
 (require 'ansi-color)
 (require 'recentf)
-
-;; backport some functionality to Emacs 22 if needed
-(require 'dominating-file)
 
 ;; Load up starter kit customizations
 
