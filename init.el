@@ -58,18 +58,43 @@
 (require 'starter-kit-ruby)
 (require 'starter-kit-js)
 
+(require 'ruby-tools)
+(require 'rvm)
+
 (regen-autoloads)
 (load custom-file 'noerror)
 
-;; You can keep system- or user-specific customizations here
-(setq system-specific-config (concat dotfiles-dir system-name ".el")
-      user-specific-config (concat dotfiles-dir "archit" ".el")
-      user-specific-dir (concat dotfiles-dir user-login-name))
-(add-to-list 'load-path user-specific-dir)
+; default window width and height
+(defun custom-set-frame-size ()
+  (add-to-list 'default-frame-alist '(height . 45))
+  (add-to-list 'default-frame-alist '(width . 161)))
+(custom-set-frame-size)
+(add-hook 'before-make-frame-hook 'custom-set-frame-size)
 
-(if (file-exists-p system-specific-config) (load system-specific-config))
-(if (file-exists-p user-specific-dir)
-  (mapc #'load (directory-files user-specific-dir nil ".*el$")))
-(if (file-exists-p user-specific-config) (load user-specific-config))
+(load-theme 'solarized-dark t)
+(add-to-list 'auto-mode-alist '("\\.js.coffee.erb$" . coffee-mode))
+(add-to-list 'auto-mode-alist '("\\.podspec$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\..*hbs.*$" . handlebars-mode))
+(add-to-list 'auto-mode-alist '("\\.handlebars.*$" . handlebars-mode))
 
+(eval-after-load 'ruby-mode
+  '(progn
+     ;; stop the crazy indentation
+     (setq ruby-deep-indent-paren-style nil)
+
+     ;; always indent on newline
+     (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)))
+
+(global-set-key (kbd "C-x C-f") 'find-file-other-window)
+
+;; make Cmd key act as Meta
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier 'super)
+(setq mac-control-modifier 'control)
+(setq ns-function-modifier 'hyper)
+
+(setq visible-bell nil) ;; The default
+(setq ring-bell-function 'ignore)
+
+(server-start)
 ;;; init.el ends here
