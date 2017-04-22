@@ -74,8 +74,8 @@
 (load-theme 'solarized-dark t)
 (add-to-list 'auto-mode-alist '("\\.js.coffee.erb$" . coffee-mode))
 (add-to-list 'auto-mode-alist '("\\.podspec$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\..*hbs.*$" . handlebars-mode))
-(add-to-list 'auto-mode-alist '("\\.handlebars.*$" . handlebars-mode))
+(add-to-list 'auto-mode-alist '("\\..*hbs.*$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.handlebars.*$" . web-mode))
 
 (eval-after-load 'ruby-mode
   '(progn
