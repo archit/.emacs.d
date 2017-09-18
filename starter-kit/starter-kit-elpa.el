@@ -5,10 +5,9 @@
 (require 'cl)
 
 (defvar starter-kit-packages
-  (list 'idle-highlight-mode 'ag 'solarized-theme 'agg 'yaml-mode
+  (list 'idle-highlight-mode 'ag 'solarized-theme 'yaml-mode
         'ruby-mode 'inf-ruby 'find-file-in-project 'gist
-        'rust-mode 'cargo 'pythonic 'abl-mode
-        'dockerfile-mode 'egg
+        'rust-mode 'cargo 'pythonic 'abl-mode 'dockerfile-mode
         'yasnippet 'redis 'terraform-mode 'hcl-mode
         'web-mode 'web-mode-edit-element 'css-mode 'html-mode)
   "Libraries that should be installed by default.")
