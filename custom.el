@@ -5,10 +5,6 @@
  ;; If there is more than one, they won't work right.
  '(exec-path (quote ("/usr/bin" "/bin" "/usr/sbin" "/sbin" "/usr/local/bin"
                      "/Applications/Emacs.app/Contents/MacOS/bin")))
- '(ack-and-a-half-executable (let ((ack-grep-bin (executable-find "ack-grep"))
-                                   (ack-bin (executable-find "ack")))
-                               (if ack-grep-bin ack-grep-bin
-                                 (if ack-bin ack-bin nil))))
  '(scss-compile-at-save nil)
  '(haskell-mode-hook '(turn-on-haskell-indent))
  '(coffee-tab-width 2)
