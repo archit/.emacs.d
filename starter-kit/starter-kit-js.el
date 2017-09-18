@@ -38,6 +38,8 @@
                     nil))))))
 (add-hook 'esk-js-mode-hook 'pretty-functions)
 
+(add-hook 'js-mode-hook (lambda () (yas/minor-mode-on)))
+
 (if (< (string-to-number emacs-version) 23.2)
     (esk-configure-javascript "espresso")
   (esk-configure-javascript "js"))

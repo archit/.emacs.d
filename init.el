@@ -64,6 +64,9 @@
 (regen-autoloads)
 (load custom-file 'noerror)
 
+(require 'yasnippet)
+(yas-global-mode 1)
+
 ; default window width and height
 (defun custom-set-frame-size ()
   (add-to-list 'default-frame-alist '(height . 45))
