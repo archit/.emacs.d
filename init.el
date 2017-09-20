@@ -89,6 +89,7 @@
      (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)))
 
 (global-set-key (kbd "C-x C-f") 'find-file-other-window)
+(global-set-key (kbd "<f5>") 'ag-project)
 
 ;; make Cmd key act as Meta
 (setq mac-command-modifier 'meta)
