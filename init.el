@@ -58,9 +58,6 @@
 (require 'starter-kit-ruby)
 (require 'starter-kit-js)
 
-(require 'ruby-tools)
-(require 'rvm)
-
 (regen-autoloads)
 (load custom-file 'noerror)
 
@@ -86,7 +83,10 @@
      (setq ruby-deep-indent-paren-style nil)
 
      ;; always indent on newline
-     (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)))
+     (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
+     (require 'ruby-tools)
+     (require 'rvm)))
+
 
 (global-set-key (kbd "C-x C-f") 'find-file-other-window)
 (global-set-key (kbd "<f5>") 'ag-project)
