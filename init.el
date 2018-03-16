@@ -932,7 +932,10 @@ exec-to-string command, but it works and seems fast"
 (require 'yasnippet)
 (yas-global-mode 1)
 
-                                        ; default window width and height
+(set-default-font "Monospace 10")
+
+; default window width and height
+>>>>>>> Stashed changes
 (defun custom-set-frame-size ()
   (add-to-list 'default-frame-alist '(height . 45))
   (add-to-list 'default-frame-alist '(width . 161)))
