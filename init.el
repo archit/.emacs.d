@@ -47,7 +47,8 @@
         'yasnippet 'redis 'terraform-mode 'hcl-mode
         'web-mode 'web-mode-edit-element 'css-mode 'html-mode
         'ruby-electric 'javadoc-lookup 'java-snippets
-        'markdown-mode 'markdown-mode+ 'scpaste)
+        'markdown-mode 'markdown-mode+ 'scpaste
+        'elpy 'py-autopep8 'flycheck)
   "Libraries that should be installed by default.")
 
 (defun starter-kit-elpa-install ()
@@ -917,7 +918,16 @@ exec-to-string command, but it works and seems fast"
 
 ;;; starter-kit-js.el ends here
 
+;;; Python Customizations
+(elpy-enable)
 (load custom-file 'noerror)
+
+(require 'py-autopep8)
+(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+
+(when (require 'flycheck nil t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
 
 (require 'yasnippet)
 (yas-global-mode 1)
