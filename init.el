@@ -439,10 +439,6 @@ Symbols matching the text at point are put first in the completion list."
     (let ((case-fold-search isearch-case-fold-search))
       (occur (if isearch-regexp isearch-string (regexp-quote isearch-string))))))
 
-;; Org
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-
 ;;; starter-kit-bindings.el ends here
 
 ;;; starter-kit-misc.el --- Things that don't fit anywhere else
