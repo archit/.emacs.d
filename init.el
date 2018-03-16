@@ -65,8 +65,8 @@ just have to assume it's online."
   (if (and (functionp 'network-interface-list)
            (network-interface-list))
       (some (lambda (iface) (unless (equal "lo" (car iface))
-                         (member 'up (first (last (network-interface-info
-                                                   (car iface)))))))
+                              (member 'up (first (last (network-interface-info
+                                                        (car iface)))))))
             (network-interface-list))
     t))
 
@@ -131,15 +131,15 @@ Symbols matching the text at point are put first in the completion list."
                              (cond
                               ((and (listp symbol) (imenu--subalist-p symbol))
                                (addsymbols symbol))
-                              
+
                               ((listp symbol)
                                (setq name (car symbol))
                                (setq position (cdr symbol)))
-                              
+
                               ((stringp symbol)
                                (setq name symbol)
                                (setq position (get-text-property 1 'org-imenu-marker symbol))))
-                             
+
                              (unless (or (null position) (null name))
                                (add-to-list 'symbol-names name)
                                (add-to-list 'name-and-pos (cons name position))))))))
@@ -204,7 +204,7 @@ Symbols matching the text at point are put first in the completion list."
 (add-hook 'coding-hook 'pretty-lambdas)
 (add-hook 'coding-hook 'add-watchwords)
 (add-hook 'coding-hook 'turn-on-idle-highlight)
-  
+
 (defun run-coding-hook ()
   "Enable things that are convenient across all coding buffers."
   (run-hooks 'coding-hook))
@@ -522,7 +522,7 @@ Symbols matching the text at point are put first in the completion list."
 (set-default 'imenu-auto-rescan t)
 
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
-;(add-hook 'text-mode-hook 'turn-on-flyspell)
+                                        ;(add-hook 'text-mode-hook 'turn-on-flyspell)
 
 (defvar coding-hook nil
   "Hook that gets run on activation of any programming mode.")
@@ -562,8 +562,8 @@ Symbols matching the text at point are put first in the completion list."
 
 (eval-after-load 'grep
   '(when (boundp 'grep-find-ignored-files)
-    (add-to-list 'grep-find-ignored-files "target")
-    (add-to-list 'grep-find-ignored-files "*.class")))
+     (add-to-list 'grep-find-ignored-files "target")
+     (add-to-list 'grep-find-ignored-files "*.class")))
 
 ;; Default to unified diffs
 (setq diff-switches "-u -w")
@@ -679,12 +679,12 @@ Symbols matching the text at point are put first in the completion list."
 (define-key lisp-mode-shared-map (kbd "C-c v") 'eval-buffer)
 
 (defface esk-paren-face
-   '((((class color) (background dark))
-      (:foreground "grey50"))
-     (((class color) (background light))
-      (:foreground "grey55")))
-   "Face used to dim parentheses."
-   :group 'starter-kit-faces)
+  '((((class color) (background dark))
+     (:foreground "grey50"))
+    (((class color) (background light))
+     (:foreground "grey55")))
+  "Face used to dim parentheses."
+  :group 'starter-kit-faces)
 
 ;;; Emacs Lisp
 
@@ -758,7 +758,7 @@ Symbols matching the text at point are put first in the completion list."
 (add-to-list 'auto-mode-alist '("\\.tt$" . tt-mode))
 
 ;; TODO: flymake
-;; TODO: electric bugaloo 
+;; TODO: electric bugaloo
 
 ;; starter-kit-perl.el ends here
 ;;; starter-kit-ruby.el --- Some helpful Ruby code
@@ -923,7 +923,7 @@ exec-to-string command, but it works and seems fast"
 (require 'yasnippet)
 (yas-global-mode 1)
 
-; default window width and height
+                                        ; default window width and height
 (defun custom-set-frame-size ()
   (add-to-list 'default-frame-alist '(height . 45))
   (add-to-list 'default-frame-alist '(width . 161)))
