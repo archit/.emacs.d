@@ -32,6 +32,7 @@
 (require 'package)
 (dolist (source '(("melpa" . "http://melpa.milkbox.net/packages/")))
   (add-to-list 'package-archives source t))
+
 (package-initialize)
 ;;; starter-kit-elpa.el --- Install a base set of packages automatically.
 ;;
@@ -44,7 +45,9 @@
         'ruby-mode 'inf-ruby 'ruby-tools 'rvm 'find-file-in-project 'gist
         'rust-mode 'cargo 'pythonic 'abl-mode 'dockerfile-mode
         'yasnippet 'redis 'terraform-mode 'hcl-mode
-        'web-mode 'web-mode-edit-element 'css-mode 'html-mode)
+        'web-mode 'web-mode-edit-element 'css-mode 'html-mode
+        'ruby-electric 'javadoc-lookup 'java-snippets
+        'markdown-mode 'markdown-mode+ 'scpaste)
   "Libraries that should be installed by default.")
 
 (defun starter-kit-elpa-install ()
