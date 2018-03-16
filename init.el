@@ -86,12 +86,14 @@ just have to assume it's online."
 ;; These should be loaded on startup rather than autoloaded on demand
 ;; since they are likely to be used in every session
 
-(require 'cl)
 (require 'saveplace)
 (require 'ffap)
 (require 'uniquify)
 (require 'ansi-color)
+
 (require 'recentf)
+;; Save a list of recent files visited.
+(recentf-mode 1)
 
 ;; Load up starter kit customizations
 
@@ -498,9 +500,6 @@ Symbols matching the text at point are put first in the completion list."
 ;; Enable syntax highlighting for older Emacsen that have it off
 (global-font-lock-mode t)
 
-;; Save a list of recent files visited.
-(recentf-mode 1)
-
 ;; Highlight matching parentheses when the point is on them.
 (show-paren-mode 1)
 
@@ -757,6 +756,7 @@ Symbols matching the text at point are put first in the completion list."
 ;; TODO: electric bugaloo
 
 ;; starter-kit-perl.el ends here
+
 ;;; starter-kit-ruby.el --- Some helpful Ruby code
 ;;
 ;; Part of the Emacs Starter Kit
