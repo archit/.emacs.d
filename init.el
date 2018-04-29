@@ -934,7 +934,8 @@ exec-to-string command, but it works and seems fast"
 (require 'yasnippet)
 (yas-global-mode 1)
 
-(set-default-font "Monospace 10")
+(add-to-list 'default-frame-alist
+             '(font . "DejaVu Sans Mono-13"))
 
 ; default window width and height
 (defun custom-set-frame-size ()
