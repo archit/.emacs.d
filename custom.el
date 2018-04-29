@@ -9,7 +9,10 @@
  '(haskell-mode-hook '(turn-on-haskell-indent))
  '(coffee-tab-width 2)
  '(js-indent-level 4)
- '(fill-column 300))
+ '(fill-column 300)
+ '(package-selected-packages
+   (quote
+    (elpygen yaml-mode web-mode-edit-element terraform-mode solarized-theme scpaste rvm ruby-tools ruby-electric redis pythonic py-autopep8 ox-gfm markdown-mode+ javadoc-lookup java-snippets inf-ruby idle-highlight-mode gist flycheck elpy dockerfile-mode cargo ag abl-mode))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
