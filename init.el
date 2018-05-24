@@ -791,6 +791,7 @@ Symbols matching the text at point are put first in the completion list."
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Vagrantfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.podspec$" . ruby-mode))
 
 ;; We never want to edit Rubinius bytecode or MacRuby binaries
 (add-to-list 'completion-ignored-extensions ".rbc")
@@ -855,6 +856,16 @@ exec-to-string command, but it works and seems fast"
 
 (eval-after-load 'ruby-mode
   '(progn
+     ;; stop the crazy indentation
+     (setq ruby-deep-indent-paren-style nil)
+
+     ;; always indent on newline
+     (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
+     (require 'ruby-tools)
+     (require 'rvm)))
+
+(eval-after-load 'ruby-mode
+  '(progn
      (require 'flymake)
      (push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
      (push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
@@ -866,9 +877,6 @@ exec-to-string command, but it works and seems fast"
 (setq rinari-major-modes
       (list 'mumamo-after-change-major-mode-hook 'dired-mode-hook 'ruby-mode-hook
             'css-mode-hook 'yaml-mode-hook 'javascript-mode-hook))
-
-;; TODO: set up ri
-;; TODO: electric
 
 ;; starter-kit-ruby.el ends here
 
@@ -924,42 +932,27 @@ exec-to-string command, but it works and seems fast"
 (elpy-enable)
 (load custom-file 'noerror)
 
-(require 'py-autopep8)
-(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+;; (require 'py-autopep8)
+;; (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
+;;; Go-mode Customizations
+(add-hook 'go-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook 'gofmt-before-save)
+            (setq tab-width 4)
+            (setq indent-tabs-mode 1)))
+
 (require 'yasnippet)
 (yas-global-mode 1)
 
-(add-to-list 'default-frame-alist
-             '(font . "DejaVu Sans Mono-13"))
-
-; default window width and height
-(defun custom-set-frame-size ()
-  (add-to-list 'default-frame-alist '(height . 45))
-  (add-to-list 'default-frame-alist '(width . 161)))
-(custom-set-frame-size)
-(add-hook 'before-make-frame-hook 'custom-set-frame-size)
-
 (load-theme 'solarized-dark t)
 (add-to-list 'auto-mode-alist '("\\.js.coffee.erb$" . coffee-mode))
-(add-to-list 'auto-mode-alist '("\\.podspec$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\..*hbs.*$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.handlebars.*$" . web-mode))
-
-(eval-after-load 'ruby-mode
-  '(progn
-     ;; stop the crazy indentation
-     (setq ruby-deep-indent-paren-style nil)
-
-     ;; always indent on newline
-     (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
-     (require 'ruby-tools)
-     (require 'rvm)))
-
 
 (global-set-key (kbd "C-x C-f") 'find-file-other-window)
 (global-set-key (kbd "<f5>") 'ag-project)
