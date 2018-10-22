@@ -9,10 +9,10 @@
     ("/usr/bin" "/bin" "/usr/sbin" "/sbin" "/usr/local/bin" "/Applications/Emacs.app/Contents/MacOS/bin")))
  '(fill-column 300)
  '(haskell-mode-hook (quote (turn-on-haskell-indent)))
- '(js-indent-level 4 t)
+ '(js-indent-level 4)
  '(package-selected-packages
    (quote
-    (zenburn-theme elpygen yaml-mode web-mode-edit-element terraform-mode solarized-theme scpaste rvm ruby-tools ruby-electric redis pythonic py-autopep8 ox-gfm markdown-mode+ javadoc-lookup java-snippets inf-ruby idle-highlight-mode gist flycheck elpy dockerfile-mode cargo ag abl-mode)))
+    (pytest python-environment python-mode python-pytest pyenv-mode auto-virtualenv flycheck-rust rust-mode rust-playground zenburn-theme elpygen yaml-mode web-mode-edit-element terraform-mode solarized-theme scpaste rvm ruby-tools ruby-electric redis pythonic py-autopep8 ox-gfm markdown-mode+ javadoc-lookup java-snippets inf-ruby idle-highlight-mode gist flycheck elpy dockerfile-mode cargo ag abl-mode)))
  '(scss-compile-at-save nil))
 
 (custom-set-faces
