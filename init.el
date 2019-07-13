@@ -48,7 +48,7 @@
         'web-mode 'web-mode-edit-element 'css-mode 'html-mode
         'ruby-electric 'javadoc-lookup 'java-snippets
         'markdown-mode 'markdown-mode+ 'scpaste
-        'elpy 'py-autopep8 'flycheck)
+        'elpy 'py-autopep8 'flycheck 'org-journal)
   "Libraries that should be installed by default.")
 
 (defun starter-kit-elpa-install ()
@@ -74,7 +74,7 @@ just have to assume it's online."
             (network-interface-list))
     t))
 
-;; On your first run, this should pull in all the base packages.
+;; On your first run, pull in all the base packages.
 (when (esk-online?)
   (unless package-archive-contents (package-refresh-contents))
   (starter-kit-elpa-install))
@@ -569,11 +569,15 @@ Symbols matching the text at point are put first in the completion list."
 ;; Default to unified diffs
 (setq diff-switches "-u -w")
 
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+(setq exec-path (append exec-path '(":/usr/local/bin")))
+(setenv "PATH" (concat (getenv "PATH") ":/opt/local/bin"))
+(setq exec-path (append exec-path '(":/opt/local/bin")))
+
 ;; Cosmetics
 
 ;; (set-face-background 'vertical-border "white")
 ;; (set-face-foreground 'vertical-border "white")
-
 (eval-after-load 'diff-mode
   '(progn
      (set-face-foreground 'diff-added "green4")
@@ -930,10 +934,24 @@ exec-to-string command, but it works and seems fast"
 
 ;;; Python Customizations
 (elpy-enable)
+(pyenv-mode)
 (load custom-file 'noerror)
 
-;; (require 'py-autopep8)
-;; (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+(defun pyvenv-autoload ()
+  (require 'projectile)
+  (let* ((pdir (projectile-project-root)) (pfile (concat pdir "venv")))
+    (if (file-exists-p pfile)
+        (pyvenv-activate pfile))))
+(add-hook 'elpy-mode-hook 'pyvenv-autoload)
+(defun pyenv-autoload ()
+  "Automatically activates pyenv version if .python-version file exists."
+  (f-traverse-upwards
+   (lambda (path)
+     (let ((pyenv-version-path (f-expand ".python-version" path)))
+       (if (f-exists? pyenv-version-path)
+           (pyenv-mode-set (s-trim (f-read-text pyenv-version-path 'utf-8))))))))
+
+(add-hook 'find-file-hook 'pyenv-autoload)
 
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
@@ -949,13 +967,24 @@ exec-to-string command, but it works and seems fast"
 (require 'yasnippet)
 (yas-global-mode 1)
 
-(load-theme 'solarized-dark t)
+(add-to-list 'default-frame-alist
+             '(font . "Hack-13"))
+
+; default window width and height
+(defun custom-set-frame-size ()
+  (add-to-list 'default-frame-alist '(height . 45))
+  (add-to-list 'default-frame-alist '(width . 161)))
+(custom-set-frame-size)
+(add-hook 'before-make-frame-hook 'custom-set-frame-size)
+
+(load-theme 'nord t)
+
 (add-to-list 'auto-mode-alist '("\\.js.coffee.erb$" . coffee-mode))
 (add-to-list 'auto-mode-alist '("\\..*hbs.*$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.handlebars.*$" . web-mode))
 
 (global-set-key (kbd "C-x C-f") 'find-file-other-window)
-(global-set-key (kbd "<f5>") 'ag-project)
+(global-set-key (kbd "<f5>") 'ag-project-regexp)
 
 ;; make Cmd key act as Meta
 (setq mac-command-modifier 'meta)
@@ -967,12 +996,20 @@ exec-to-string command, but it works and seems fast"
 (setq ring-bell-function 'ignore)
 
 (require 'org)
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-(setq org-log-done t)
+(require 'org-agenda)
+(require 'org-journal)
 
-(setq org-agenda-files (list "~/org/work.org"
-                             "~/org/home.org"))
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+
+(setq org-log-done t)
+(setq org-default-notes-file (concat org-directory "/notes.org"))
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/org/work.org" "Tasks")
+         "* TODO %?\n  %i\n  %a")
+        ("j" "Journal" entry (file+datetree "~/org/journal.org")
+         "* %?\nEntered on %U\n  %i\n  %a")))
 
 (server-start)
 ;;; init.el ends here
