@@ -42,7 +42,7 @@
 (require 'cl)
 
 (defvar starter-kit-packages
-  (list 'idle-highlight-mode 'ag 'solarized-theme 'yaml-mode
+  (list 'idle-highlight-mode 'rg 'solarized-theme 'yaml-mode
         'ruby-mode 'inf-ruby 'ruby-tools 'rvm 'find-file-in-project 'gist
         'rust-mode 'cargo 'pythonic 'abl-mode 'dockerfile-mode
         'yasnippet 'redis 'terraform-mode 'hcl-mode
@@ -991,7 +991,7 @@ exec-to-string command, but it works and seems fast"
 (add-to-list 'auto-mode-alist '("\\.handlebars.*$" . web-mode))
 
 (global-set-key (kbd "C-x C-f") 'find-file-other-window)
-(global-set-key (kbd "<f5>") 'ag-project-regexp)
+(global-set-key (kbd "<f5>") 'rg-project)
 
 ;; make Cmd key act as Meta
 (setq mac-command-modifier 'meta)
