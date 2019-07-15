@@ -28,6 +28,7 @@
 
 (setq package-user-dir (concat dotfiles-dir "elpa"))
 (setq custom-file (concat dotfiles-dir "custom.el"))
+(load custom-file)
 
 (require 'package)
 (dolist (source '(("melpa" . "http://melpa.milkbox.net/packages/")))
@@ -568,11 +569,6 @@ Symbols matching the text at point are put first in the completion list."
 
 ;; Default to unified diffs
 (setq diff-switches "-u -w")
-
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
-(setq exec-path (append exec-path '(":/usr/local/bin")))
-(setenv "PATH" (concat (getenv "PATH") ":/opt/local/bin"))
-(setq exec-path (append exec-path '(":/opt/local/bin")))
 
 ;; Cosmetics
 
