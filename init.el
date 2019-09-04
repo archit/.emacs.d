@@ -41,8 +41,8 @@
 
 (require 'cl)
 
-(defvar starter-kit-packages
-  (list 'idle-highlight-mode 'rg 'solarized-theme 'yaml-mode
+(defvar my-packages
+  (list 'idle-highlight-mode 'rg 'nord-theme 'yaml-mode
         'ruby-mode 'inf-ruby 'ruby-tools 'rvm 'find-file-in-project 'gist
         'rust-mode 'cargo 'pythonic 'abl-mode 'dockerfile-mode
         'yasnippet 'redis 'terraform-mode 'hcl-mode
@@ -55,7 +55,7 @@
 (defun starter-kit-elpa-install ()
   "Install all starter-kit packages that aren't installed."
   (interactive)
-  (dolist (package starter-kit-packages)
+  (dolist (package my-packages)
     (unless (or (member package package-activated-list)
                 (functionp package))
       (message "Installing %s" (symbol-name package))
