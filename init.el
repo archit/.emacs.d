@@ -22,9 +22,7 @@
 
 ;; Load up ELPA, the package manager
 
-(add-to-list 'load-path (concat dotfiles-dir "/elpa-to-submit"))
 (add-to-list 'load-path (concat dotfiles-dir "/lisp"))
-(add-to-list 'load-path (concat dotfiles-dir "/starter-kit"))
 
 (setq package-user-dir (concat dotfiles-dir "elpa"))
 (setq custom-file (concat dotfiles-dir "custom.el"))
@@ -49,7 +47,7 @@
         'web-mode 'web-mode-edit-element 'css-mode 'html-mode
         'ruby-electric 'javadoc-lookup 'java-snippets
         'markdown-mode 'markdown-mode+ 'scpaste
-        'elpy 'py-autopep8 'flycheck 'org-journal)
+        'elpy 'cider 'py-autopep8 'flycheck 'org-journal)
   "Libraries that should be installed by default.")
 
 (defun starter-kit-elpa-install ()
