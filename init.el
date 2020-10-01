@@ -29,15 +29,12 @@
 (load custom-file)
 
 (require 'package)
-(dolist (source '(("melpa" . "http://melpa.milkbox.net/packages/")))
+(dolist (source '(("melpa" . "https://melpa.org/packages/")))
   (add-to-list 'package-archives source t))
 
 (package-initialize)
-;;; starter-kit-elpa.el --- Install a base set of packages automatically.
-;;
-;; Part of the Emacs Starter Kit
 
-(require 'cl)
+(require 'cl-lib)
 
 (defvar my-packages
   (list 'idle-highlight-mode 'rg 'nord-theme 'yaml-mode
@@ -64,13 +61,12 @@
 
 Windows does not have the network-interface-list function, so we
 just have to assume it's online."
-  ;; TODO how could this work on Windows?
   (if (and (functionp 'network-interface-list)
            (network-interface-list))
-      (some (lambda (iface) (unless (equal "lo" (car iface))
-                              (member 'up (first (last (network-interface-info
-                                                        (car iface)))))))
-            (network-interface-list))
+      (cl-some (lambda (iface) (unless (equal "lo" (car iface))
+                            (member 'up (car (last (network-interface-info
+                                                    (car iface)))))))
+               (network-interface-list))
     t))
 
 ;; On your first run, pull in all the base packages.
@@ -119,54 +115,6 @@ just have to assume it's online."
     ;; TODO: switch to nxml/nxhtml mode
     (cond ((search-forward "<?xml" nil t) (xml-mode))
           ((search-forward "<html" nil t) (html-mode)))))
-
-;; Buffer-related
-
-(defun ido-imenu ()
-  "Update the imenu index and then use ido to select a symbol to navigate to.
-Symbols matching the text at point are put first in the completion list."
-  (interactive)
-  (imenu--make-index-alist)
-  (let ((name-and-pos '())
-        (symbol-names '()))
-    (cl-flet ((addsymbols (symbol-list)
-                          (when (listp symbol-list)
-                            (dolist (symbol symbol-list)
-                              ((let* (args))
-                               et ((name nil) (position nil))
-                               ((cond
-                                 (condition body))
-                                ((and (listp symbol) (imenu--subalist-p symbol))
-                                 (addsymbols symbol))
-
-                                ((listp symbol)
-                                 (setq name (car symbol))
-                                 (setq position (cdr symbol)))
-
-                                ((stringp symbol)
-                                 (setq name symbol)
-                                 (setq position (get-text-property 1 'org-imenu-marker symbol))))
-
-                               (unless (or (null position) (null name))
-                                 (add-to-list 'symbol-names name)
-                                 (add-to-list 'name-and-pos (cons name position))))))))
-      (addsymbols imenu--index-alist))
-    ;; If there are matching symbols at point, put them at the beginning of `symbol-names'.
-    (let ((symbol-at-point (thing-at-point 'symbol)))
-      (when symbol-at-point
-        (let* ((regexp (concat (regexp-quote symbol-at-point) "$"))
-               (matching-symbols (delq nil (mapcar (lambda (symbol)
-                                                     (if (string-match regexp symbol) symbol))
-                                                   symbol-names))))
-          (when matching-symbols
-            (sort matching-symbols (lambda (a b) (> (length a) (length b))))
-            (mapc (lambda (symbol) (setq symbol-names (cons symbol (delete symbol symbol-names))))
-                  matching-symbols)))))
-    (let* ((selected-symbol (ido-completing-read "Symbol? " symbol-names))
-           (position (cdr (assoc selected-symbol name-and-pos))))
-      (goto-char position))))
-
-;;; These belong in coding-hook:
 
 ;; We have a number of turn-on-* functions since it's advised that lambda
 ;; functions not go in hooks. Repeatedly evaling an add-to-list with a
@@ -385,9 +333,6 @@ Symbols matching the text at point are put first in the completion list."
 (global-set-key (kbd "\C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
-
-;; Jump to a definition in the current file. (This is awesome.)
-(global-set-key (kbd "C-x C-i") 'ido-imenu)
 
 ;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
