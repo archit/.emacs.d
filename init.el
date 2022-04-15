@@ -15,6 +15,15 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
+;; make Cmd key act as Meta
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier 'super)
+(setq mac-control-modifier 'control)
+(setq ns-function-modifier 'hyper)
+
+(setq visible-bell nil) ;; The default
+(setq ring-bell-function 'ignore)
+
 ;; Load path etc.
 
 (setq dotfiles-dir (file-name-directory
@@ -302,6 +311,8 @@ just have to assume it's online."
 (defun vc-git-annotate-command (file buf &optional rev)
   (let ((name (file-relative-name file)))
     (vc-git-command buf 0 name "blame" "-w" rev)))
+
+(require 'p4)
 
 ;;; starter-kit-defuns.el ends here
 
@@ -883,36 +894,17 @@ exec-to-string command, but it works and seems fast"
 (add-hook 'racer-mode-hook #'eldoc-mode)
 (add-hook 'racer-mode-hook #'company-mode)
 
-;;; Python Customizations
-(elpy-enable)
-(pyenv-mode)
-
-(defun pyvenv-autoload ()
-  (require 'projectile)
-  (let* ((pdir (projectile-project-root)) (pfile (concat pdir "venv")))
-    (if (file-exists-p pfile)
-        (pyvenv-activate pfile))))
-(add-hook 'elpy-mode-hook 'pyvenv-autoload)
-(defun pyenv-autoload ()
-  "Automatically activates pyenv version if .python-version file exists."
-  (f-traverse-upwards
-   (lambda (path)
-     (let ((pyenv-version-path (f-expand ".python-version" path)))
-       (if (f-exists? pyenv-version-path)
-           (pyenv-mode-set (s-trim (f-read-text pyenv-version-path 'utf-8))))))))
-
-(add-hook 'find-file-hook 'pyenv-autoload)
-
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
+(setenv "GOPATH" "/Users/abaweja/go")
+(setenv "GOROOT" "/usr/local/go")
 
 ;;; Go-mode Customizations
 (add-hook 'go-mode-hook
           (lambda ()
             (add-hook 'before-save-hook 'gofmt-before-save)
             (setq tab-width 4)
-            (setq indent-tabs-mode 1)))
+            (setq indent-tabs-mode 1)
+            (local-set-key (kbd "M-.") 'godef-jump)
+            (local-set-key (kbd "M-*") 'pop-tag-mark)))
 
 (require 'yasnippet)
 (yas-global-mode 1)
@@ -935,15 +927,6 @@ exec-to-string command, but it works and seems fast"
 
 (global-set-key (kbd "C-x C-f") 'find-file-other-window)
 (global-set-key (kbd "<f5>") 'rg-project)
-
-;; make Cmd key act as Meta
-(setq mac-command-modifier 'meta)
-(setq mac-option-modifier 'super)
-(setq mac-control-modifier 'control)
-(setq ns-function-modifier 'hyper)
-
-(setq visible-bell nil) ;; The default
-(setq ring-bell-function 'ignore)
 
 (require 'org)
 (require 'org-agenda)
